@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
+    Collider2D coll;
+
+    private void Awake()
+    {
+        coll = GetComponent<Collider2D>();
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -37,6 +44,10 @@ public class Reposition : MonoBehaviour
                 }
                 break;
             case "Enemy":
+                if (coll.enabled)
+                {
+                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0)); // 플레이어의 맞은편에서도 나타나게 함.
+                }
                 break;
 
         }
