@@ -6,11 +6,7 @@
 
 ## 다운로드
 ### 권장 : 압축파일 다운로드
-다음 링크에서 압축 파일을 다운로드 합니다 : [**다운로드 하기**](http://github.com/IJEMIN/Unity-Programming-Essence-2021/releases/download/v1.2/Unity-Programming-Essence-2021.zip)
-
-같은 파일을 깃허브 저장소의 [릴리즈](http://github.com/IJEMIN/Unity-Programming-Essence-2021/releases) 탭이나 한빛미디어 홈페이지에서도 찾아 다운로드 할 수 있습니다.
-
-### 저장소를 다운로드(클론)하기
+다음 링크에서 압축 파일을 다운로드 합니다 
 https://drive.google.com/drive/folders/1KylBZUsS4UoJIs2-BHOPVKdlnQ66QNrk?usp=drive_link
 
 > __주의사항__: 
@@ -18,3 +14,5 @@ https://drive.google.com/drive/folders/1KylBZUsS4UoJIs2-BHOPVKdlnQ66QNrk?usp=dri
 > <br>깃허브 오른쪽 상단의 초록색 버튼 > 'Downloading Zip'으로는 파일을 정상적으로 다운로드 할 수 없습니다.
 
 ## 기획 및 개발 일지 
+아래 노션 페이지를 참고 해주세요.
+https://bittersweet-camelotia-08e.notion.site/11732acd6bd1801f966de0273e79c978
