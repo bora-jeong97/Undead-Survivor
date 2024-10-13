@@ -24,4 +24,4 @@ https://drive.google.com/drive/folders/1KylBZUsS4UoJIs2-BHOPVKdlnQ66QNrk?usp=dri
 ## 기획 및 개발 일지 
 아래 노션 페이지를 참고 해주세요.
 https://bittersweet-camelotia-08e.notion.site/11732acd6bd1801f966de0273e79c978
-"# Food-Survivors" 
+
