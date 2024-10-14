@@ -26,5 +26,3 @@ https://drive.google.com/drive/folders/1KylBZUsS4UoJIs2-BHOPVKdlnQ66QNrk?usp=dri
 아래 노션 페이지를 참고 해주세요. 코드의 완성도가 낮은 프로토타입입니다.(20241014 기준) 
 https://bittersweet-camelotia-08e.notion.site/11732acd6bd1801f966de0273e79c978
 
-# 기타 전달사항
-2024-10-14일자 기준 미완성된 프로토타입이며 업데이트를 하며 개선될 예정입니다.
