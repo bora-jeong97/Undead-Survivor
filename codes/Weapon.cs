@@ -100,7 +100,7 @@ public class Weapon : MonoBehaviour
                 break;
             default:
                 // 원거리 무기
-                speed = 0.5f * Character.WeaponRate;   // 연사 속도
+                speed = 0.4f * Character.WeaponRate;   // 연사 속도
                 break;
         }
 
@@ -145,7 +145,7 @@ public class Weapon : MonoBehaviour
             Vector3 rotVec = Vector3.forward * 360 * index / count; // 360도를 개수만큼 간격을 나눠서 돌게 한다.
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World); // local 플레이어의 y높이로 1.5f거리로 두고 이동방향은 world기준
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity per.
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero); // -100 is Infinity per.
         }
     }
 
@@ -163,6 +163,8 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir); // FromToRotation : 지정된 축을 중심으로 목표를 향해 회전하는 함수
         bullet.GetComponent<Bullet>().Init(damage, count, dir); // count : 관통력
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);  // 발사 효과음
 
     }
 

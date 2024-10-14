@@ -23,8 +23,8 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.per = per;
 
-        // 관통이 -1(무한)보다 큰 것에 대해서는 원거리 무기로 판정. 속도 적용
-        if(per > -1)
+        // 관통이 0 보다 큰 것에 대해서는 원거리 무기로 판정. 속도 적용
+        if(per >= 0)
         {
             rigid.velocity = dir * 15f; // 속도 = 방향 * 속력
         }
@@ -32,15 +32,27 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Enemy") || per == -1)
+        if (!collision.CompareTag("Enemy") || per == -100)
             return;
 
         per--;  // 한 마리에 부딪치면 관통력이 줄어든다
 
-        if(per == -1)
+        if(per < 0)
         {
             rigid.velocity = Vector2.zero;
             gameObject.SetActive(false);    // 오브젝트 풀링에서 재활용할 것
         }
+    }
+
+    /// <summary>
+    /// 원거리 무기가 Area 밖으로 나갈시 비활성화
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Area") || per == -100)
+            return;
+
+        gameObject.SetActive(false);   
     }
 }

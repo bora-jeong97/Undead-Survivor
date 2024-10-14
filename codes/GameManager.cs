@@ -20,18 +20,20 @@ public class GameManager : MonoBehaviour
     public int level;
     public int kill;
     public int exp;
-    public int[] nextExp = { 3, 5, 10, 100, 150, 210, 280, 360, 450, 600 };
+    public int[] nextExp = { 3, 5, 10, 20, 40, 70, 100, 150, 200, 300 };
     [Header("# Game Object")]
     public PoolManager pool;
     public Player player;
     public LevelUp uiLevelUp;
     public Result uiResult;
+    public Transform uiJoy;
     public GameObject enemyCleaner;
 
 
     private void Awake()
     {
         instance = this;
+        Application.targetFrameRate = 60;   // 프레임 수치 지정
     }
 
     public void GameStart(int id)
@@ -42,6 +44,9 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         uiLevelUp.Select(playerId % 2);    // 임시 스크립트 (첫번째 캐릭터 선택)
         Resume();
+
+        AudioManager.instance.PlayBgm(true);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select); // 캐릭터 선택 효과음 재생
     }
 
     /// <summary>
@@ -71,6 +76,9 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Lose();
         Stop();
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Lose); // 패배 효과음
     }
 
 
@@ -84,6 +92,9 @@ public class GameManager : MonoBehaviour
         uiResult.gameObject.SetActive(true);
         uiResult.Win();
         Stop();
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win); // 승리 효과음
     }
 
 
@@ -93,6 +104,14 @@ public class GameManager : MonoBehaviour
     public void GameRetry()
     {
         SceneManager.LoadScene(0);
+    }
+
+    /// <summary>
+    /// 게임종료
+    /// </summary>
+    public void GameQuit()
+    {
+        Application.Quit(); // 애플리케이션 종료 빌드시에만 작용
     }
 
     private void Update()
@@ -136,6 +155,7 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
         Time.timeScale = 0; // 유니티의 시간 속도(배율)
+        uiJoy.localScale = Vector3.zero;    
     }
 
 
@@ -146,5 +166,6 @@ public class GameManager : MonoBehaviour
     {
         isLive = true;
         Time.timeScale = 1;
+        uiJoy.localScale = Vector3.one;
     }
 }

@@ -91,6 +91,7 @@ public class Enemy : MonoBehaviour
         if(health > 0)
         {
             anim.SetTrigger("Hit");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
         }
         else
         {
@@ -102,6 +103,9 @@ public class Enemy : MonoBehaviour
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
             GameManager.instance.GetExp();
+
+            if(GameManager.instance.isLive) // 마지막 게임 몬스터를 전부 죽일때는 소리가 나지 않도록 함
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }
 
@@ -111,7 +115,7 @@ public class Enemy : MonoBehaviour
         yield return wait;  // 다음 하나의 물리 프레임까지 딜레이
         Vector3 playerPos = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPos;    // 플레이어 기준 반대 방향
-        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse); // 3만큼 반대방향으로 힘을 준다
+        rigid.AddForce(dirVec.normalized * 4, ForceMode2D.Impulse); // 3만큼 반대방향으로 힘을 준다
     }
 
     // Animations/Enemy/DeadEnemy 코드가 아닌 애니메이션 이벤트 시스템을 이용해 직접 호출
