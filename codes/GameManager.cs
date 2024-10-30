@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// 게임 내내 메모리에 항상 들어고있어 외부에서 쉽게 접근할 수 있다
@@ -52,19 +53,57 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 게임오버시 ui 호출
     /// </summary>
-    public void GameOver()
+    public async void GameOver()
     {
-        // 묘비 모션을 주기위해 약간의 딜레이 
-        StartCoroutine(GameOverRoutine());
+        // 묘비 모션을 보여 주기위해 약간의 딜레이 
+        // 코루틴은 매 호출마다 새로운 IEnumerator 객체 생성
+        //StartCoroutine(GameOverRoutine()); // 힙 메모리 할당 발생
+        // UniTask는 구조체를 사용하여 힙 할당을 최소화
+        await GameOverRoutineAsync(); // 값 타입으로 처리
     }
 
     /// <summary>
     /// 게임승리시 ui 호출
     /// </summary>
-    public void GameVictory()
+    public async void GameVictory()
     {
         // 묘비 모션을 주기위해 약간의 딜레이 
-        StartCoroutine(GameVictoryRoutine());
+        //StartCoroutine(GameVictoryRoutine());
+        await GameVictoryRoutineAsync();
+    }
+
+
+    // 묘비 모션을 주기 위해 약간의 딜레이
+    private async UniTask GameOverRoutineAsync()
+    {
+        isLive = false;
+
+        // yield return new WaitForSeconds(0.5f); // WaitForSeconds 대신 UniTask.Delay 사용
+        await UniTask.Delay(500); // 500ms = 0.5초
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Lose();
+        Stop();
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Lose);
+    }
+
+    // 묘비 모션을 주기 위해 약간의 딜레이
+    private async UniTask GameVictoryRoutineAsync()
+    {
+        isLive = false;
+        enemyCleaner.SetActive(true);
+
+        // yield return new WaitForSeconds(0.5f); // WaitForSeconds 대신 UniTask.Delay 사용
+        await UniTask.Delay(500); // 500ms = 0.5초
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Win();
+        Stop();
+
+        AudioManager.instance.PlayBgm(false);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
     IEnumerator GameOverRoutine()

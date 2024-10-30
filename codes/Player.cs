@@ -123,7 +123,19 @@ public class Player : MonoBehaviour
         postProcessing.SetActive(false);
         Debug.Log("PostProcessingRoutine실행완료");
 
-    }*/
+    }
+
+     private async UniTask PostProcessingRoutineAsync()
+    {
+        Debug.Log("PostProcessingRoutine실행");
+        postProcessing.SetActive(true);
+        // yield return wait; // WaitForFixedUpdate 대신 UniTask.Yield 사용
+        await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
+        postProcessing.SetActive(false);
+        Debug.Log("PostProcessingRoutine실행완료");
+    }
+ 
+ */
     #endregion
 
 
